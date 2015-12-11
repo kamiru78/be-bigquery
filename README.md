@@ -5,7 +5,7 @@
 BurningBigQuery bbq = new BurningBigQuery("project-id"
         , "servic-account"
         , new File("path/file.p12"));
-Iterable result = bbq.query("select * from dataset.table where condition=11").asIterable();
+Iterable tableRows = bbq.query("select * from dataset.table where condition=11").asIterable();
 for (TableRow row : tableRows) {
     for (TableCell cell : row.getF()) {
         System.out.print(cell.getV().toString() + ",");
@@ -16,6 +16,6 @@ for (TableRow row : tableRows) {
 
 ### Execute a query and get too learge results
 ```java
-Iterable result = bbq.query("select * from dataset.table where condition=11")
+Iterable tableRows = bbq.query("select * from dataset.table where condition=11")
     .asIterableViaGcs("temp_dataset", "temp_gcs_buckt");
 ```
