@@ -48,20 +48,10 @@ public class AuthorizationUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**
-     * Creates an authorized BigQuery client service using the OAuth 2.0
-     * protocol
-     * <p/>
-     * This method first creates a BigQuery authorization URL, then prompts the
-     * user to visit this URL in a web browser to authorize access. The
-     * application will wait for the user to paste the resulting authorization
-     * code at the command line prompt.
-     *
-     * @return an authorized BigQuery client
-     * @throws IOException
+     * Creates an authorized BigQuery client
      */
     public static Bigquery createAuthorizedBigQueryClient(String accountId, File p12File) {
         Credential credential = authorize(accountId, p12File, BIGQUERY_SCOPES);
@@ -76,6 +66,4 @@ public class AuthorizationUtil {
                 .setApplicationName(BurningBigQuery.class.getSimpleName())
                 .build();
     }
-
-
 }

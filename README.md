@@ -1,5 +1,5 @@
-# burning-bigquery
-## Example
+# Burning-BigQuery
+## Examples
 ### Execute a query simply
 ```java
 BurningBigQuery bbq = new BurningBigQuery("project-id"
