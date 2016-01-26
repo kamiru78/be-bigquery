@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.kamiru78</groupId>
-    <artifactId>burning-bigquery</artifactId>
+    <artifactId>be-bigquery</artifactId>
     <version>0.1.0</version>
-    <name>BurningBigQuery</name>
+    <name>BeBigQuery</name>
     <description>This is a simple API library for Google BigQuery.</description>
-    <url>https://github.com/kamiru78/burning-bigquery</url>
+    <url>https://github.com/kamiru78/be-bigquery</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -23,9 +23,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git@github.com:kamiru78/burning-bigquery.git</connection>
-        <developerConnection>scm:git:git@github.com:kamiru78/burning-bigquery.git</developerConnection>
-        <url>git@github.com:kamiru78/burning-bigquery.git</url>
+        <connection>scm:git:git@github.com:kamiru78/be-bigquery.git</connection>
+        <developerConnection>scm:git:git@github.com:kamiru78/be-bigquery.git</developerConnection>
+        <url>git@github.com:kamiru78/be-bigquery.git</url>
     </scm>
     <distributionManagement>
         <snapshotRepository>

@@ -1,8 +1,8 @@
-# Burning-BigQuery
+# Be-BigQuery
 ## Examples
 ### Execute a query simply
 ```java
-BurningBigQuery bbq = new BurningBigQuery("project-id"
+BeBigQuery bbq = new BeBigQuery("project-id"
         , "servic-account"
         , new File("path/file.p12"));
 Iterable tableRows = bbq.query("select * from dataset.table where condition=11").asIterable();
@@ -14,7 +14,7 @@ for (TableRow row : tableRows) {
 }
 ```
 
-### Execute a query and get too learge results
+### Execute a query and get learge results
 ```java
 Iterable tableRows = bbq.query("select * from dataset.table where condition=11")
     .asIterableViaGcs("temp_dataset", "temp_gcs_buckt");
