@@ -1,9 +1,8 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import com.google.api.services.bigquery.model.TableRow;
 import com.google.api.services.storage.Storage;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;

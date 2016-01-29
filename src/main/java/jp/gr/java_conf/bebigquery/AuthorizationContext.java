@@ -1,4 +1,4 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import java.io.File;
 

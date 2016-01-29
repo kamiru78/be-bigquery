@@ -1,4 +1,4 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.model.GetQueryResultsResponse;

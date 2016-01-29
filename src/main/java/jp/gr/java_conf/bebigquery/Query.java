@@ -1,4 +1,4 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.model.Job;
@@ -8,9 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
-
-import static org.burningbigquery.AuthorizationUtil.createAuthorizedBigQueryClient;
-import static org.burningbigquery.QueryUtil.*;
 
 /**
  *
@@ -34,10 +31,10 @@ public class Query {
 
     TableRowResult executeAndGetResult() {
         // Create a new BigQuery client
-        final Bigquery bigquery = createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
+        final Bigquery bigquery = AuthorizationUtil.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
         // Start a Query Job
-        JobConfiguration config = createSimpleJobConfiguration(query);
-        Job completedJob = executeQuery(authContext.projectId, bigquery, config);
+        JobConfiguration config = QueryUtil.createSimpleJobConfiguration(query);
+        Job completedJob = QueryUtil.executeQuery(authContext.projectId, bigquery, config);
 
         return new TableRowResult(authContext.projectId, bigquery, completedJob);
     }
@@ -83,8 +80,8 @@ public class Query {
     }
 
     private void executeQueryAndExportToTable(String tempDatasetId, String tempTableId) {
-        final Bigquery bigquery = createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
-        JobConfiguration config = createExportToTableJobConfiguration(authContext.projectId, query, tempDatasetId, tempTableId);
+        final Bigquery bigquery = AuthorizationUtil.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
+        JobConfiguration config = QueryUtil.createExportToTableJobConfiguration(authContext.projectId, query, tempDatasetId, tempTableId);
         QueryUtil.executeQuery(authContext.projectId, bigquery, config);
     }
 

@@ -1,4 +1,4 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import com.google.api.services.bigquery.model.TableCell;
 import com.google.api.services.bigquery.model.TableRow;

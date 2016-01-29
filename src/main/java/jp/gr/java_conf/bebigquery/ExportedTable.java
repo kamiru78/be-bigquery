@@ -1,10 +1,10 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.model.JobConfiguration;
 
-import static org.burningbigquery.AuthorizationUtil.createAuthorizedBigQueryClient;
-import static org.burningbigquery.QueryUtil.createExportToGcsJobConfiguration;
+import static jp.gr.java_conf.bebigquery.AuthorizationUtil.createAuthorizedBigQueryClient;
+import static jp.gr.java_conf.bebigquery.QueryUtil.createExportToGcsJobConfiguration;
 
 /**
  *

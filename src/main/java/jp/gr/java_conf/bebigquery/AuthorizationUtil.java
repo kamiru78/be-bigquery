@@ -1,4 +1,4 @@
-package org.burningbigquery;
+package jp.gr.java_conf.bebigquery;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -60,6 +60,12 @@ public class AuthorizationUtil {
                 .build();
     }
 
+	/**
+     * Creates an authorized GoogleCloudStorage client
+     * @param accountId
+     * @param p12File
+     * @return
+     */
     public static Storage createAuthorizedStorageClient(String accountId, File p12File) {
         Credential credential = authorize(accountId, p12File, STORAGE_SCOPES);
         return new Storage.Builder(TRANSPORT, JSON_FACTORY, credential)
