@@ -29,14 +29,14 @@ public class Query {
         return executeAndGetResult();
     }
 
-    TableRowResult executeAndGetResult() {
+    TableRowsResult executeAndGetResult() {
         // Create a new BigQuery client
-        final Bigquery bigquery = AuthorizationUtil.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
+        final Bigquery bigquery = AuthorizationLogic.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
         // Start a Query Job
-        JobConfiguration config = QueryUtil.createSimpleJobConfiguration(query);
-        Job completedJob = QueryUtil.executeQuery(authContext.projectId, bigquery, config);
+        JobConfiguration config = QueryLogic.createSimpleJobConfiguration(query);
+        Job completedJob = QueryLogic.executeQuery(authContext.projectId, bigquery, config);
 
-        return new TableRowResult(authContext.projectId, bigquery, completedJob);
+        return new TableRowsResult(authContext.projectId, bigquery, completedJob);
     }
 
     public Iterable<TableRow> asIterableViaGcs(String tempDatasetId, String tempBucket) {
@@ -55,7 +55,7 @@ public class Query {
         return executeAndGetResultViaGcs(tempDatasetId, tempTableId, tempBucket, tempGcsPath);
     }
 
-    TableRowsStream executeAndGetResultViaGcs(String tempDatasetId, String tempTableId, String tempBucket, String tempGcsPath) {
+    TableRowsGcsStream executeAndGetResultViaGcs(String tempDatasetId, String tempTableId, String tempBucket, String tempGcsPath) {
         // Execute query and export to a temp table
         executeQueryAndExportToTable(tempDatasetId, tempTableId);
         // Export to Gcs
@@ -80,9 +80,9 @@ public class Query {
     }
 
     private void executeQueryAndExportToTable(String tempDatasetId, String tempTableId) {
-        final Bigquery bigquery = AuthorizationUtil.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
-        JobConfiguration config = QueryUtil.createExportToTableJobConfiguration(authContext.projectId, query, tempDatasetId, tempTableId);
-        QueryUtil.executeQuery(authContext.projectId, bigquery, config);
+        final Bigquery bigquery = AuthorizationLogic.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
+        JobConfiguration config = QueryLogic.createExportToTableJobConfiguration(authContext.projectId, query, tempDatasetId, tempTableId);
+        QueryLogic.executeQuery(authContext.projectId, bigquery, config);
     }
 
 }

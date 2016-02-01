@@ -14,8 +14,8 @@ import java.util.Iterator;
 /**
  *
  */
-public class TableRowResult implements Iterator<TableRow>, Iterable<TableRow> {
-    private static Logger logger = LoggerFactory.getLogger(TableRowResult.class);
+public class TableRowsResult implements Iterator<TableRow>, Iterable<TableRow> {
+    private static Logger logger = LoggerFactory.getLogger(TableRowsResult.class);
     private String projectId;
     private Bigquery bigquery;
     private Job completedJob;
@@ -23,7 +23,7 @@ public class TableRowResult implements Iterator<TableRow>, Iterable<TableRow> {
     private GetQueryResultsResponse queryResult;
     private String pageToken = null;
 
-    public TableRowResult(String projectId, Bigquery bigquery, Job completedJob) {
+    public TableRowsResult(String projectId, Bigquery bigquery, Job completedJob) {
         this.projectId = projectId;
         this.bigquery = bigquery;
         this.completedJob = completedJob;

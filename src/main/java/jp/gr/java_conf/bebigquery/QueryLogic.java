@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- *
+ * Query Logic
  */
-public class QueryUtil {
-    private static Logger logger = LoggerFactory.getLogger(QueryUtil.class);
+public class QueryLogic {
+    private static Logger logger = LoggerFactory.getLogger(QueryLogic.class);
     protected static final String GCS_EXPORT_FORMAT = "CSV";
     protected static final String EXPORT_WRITE_DISPOSITION = "WRITE_TRUNCATE";
 

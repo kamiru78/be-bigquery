@@ -29,13 +29,13 @@ public class Gcs {
         return downloadAsTableRowsStream();
     }
 
-    TableRowsStream downloadAsTableRowsStream() {
+    TableRowsGcsStream downloadAsTableRowsStream() {
         try {
             // Fetch from GCS
-            Storage storage = AuthorizationUtil.createAuthorizedStorageClient(authContext.accountId, authContext.p12File);
+            Storage storage = AuthorizationLogic.createAuthorizedStorageClient(authContext.accountId, authContext.p12File);
             Storage.Objects.Get get = storage.objects().get(bucket, path);
             InputStream is = get.executeMediaAsInputStream();
-            return new TableRowsStream(is);
+            return new TableRowsGcsStream(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -3,8 +3,8 @@ package jp.gr.java_conf.bebigquery;
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.model.JobConfiguration;
 
-import static jp.gr.java_conf.bebigquery.AuthorizationUtil.createAuthorizedBigQueryClient;
-import static jp.gr.java_conf.bebigquery.QueryUtil.createExportToGcsJobConfiguration;
+import static jp.gr.java_conf.bebigquery.AuthorizationLogic.createAuthorizedBigQueryClient;
+import static jp.gr.java_conf.bebigquery.QueryLogic.createExportToGcsJobConfiguration;
 
 /**
  *
@@ -26,7 +26,7 @@ public class ExportedTable {
         //TODO tmpGcsPathは「/」はじまりだったらNGチェック
         final Bigquery exportBigquery = createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
         JobConfiguration exportJobConfig = createExportToGcsJobConfiguration(authContext.projectId, datasetId, tableId, bucket, gcsPath);
-        QueryUtil.executeQuery(authContext.projectId, exportBigquery, exportJobConfig);
+        QueryLogic.executeQuery(authContext.projectId, exportBigquery, exportJobConfig);
         return new Gcs(authContext, bucket, gcsPath);
     }
 }

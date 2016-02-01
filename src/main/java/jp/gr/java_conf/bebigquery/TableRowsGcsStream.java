@@ -18,22 +18,14 @@ import java.util.regex.Pattern;
 /**
  *
  */
-public class TableRowsStream implements Iterator<TableRow>, Iterable<TableRow> {
+public class TableRowsGcsStream implements Iterator<TableRow>, Iterable<TableRow> {
     private final Pattern CVS_ELEMENT_PATTERN = Pattern.compile("\"([^\"]*)\"|(?<=,|^)([^,]*)(?=,|$)");
-    private final Logger logger = LoggerFactory.getLogger(TableRowsStream.class);
+    private final Logger logger = LoggerFactory.getLogger(TableRowsGcsStream.class);
     private BufferedReader stream;
-    //		private boolean isFirst = true;
-    private String firstLine;
     private String nextLine;
 
-    public TableRowsStream(InputStream is) {
-        try {
-            stream = new BufferedReader(new InputStreamReader(is));
-            firstLine = stream.readLine();
-            fetch();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public TableRowsGcsStream(InputStream is) {
+        stream = new BufferedReader(new InputStreamReader(is));
     }
 
     @Override
@@ -54,7 +46,6 @@ public class TableRowsStream implements Iterator<TableRow>, Iterable<TableRow> {
         List<TableCell> cellList = new ArrayList<TableCell>();
         Matcher matcher = CVS_ELEMENT_PATTERN.matcher(result);
         while (matcher.find()) {
-//				logger.debug("match=" + matcher.group());
             TableCell resultCell = new TableCell();
             resultCell.setV(matcher.group());
             cellList.add(resultCell);
