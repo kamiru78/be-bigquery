@@ -35,6 +35,11 @@ public class TableRowsGcsStream implements Iterator<TableRow>, Iterable<TableRow
 
     @Override
     public boolean hasNext() {
+        // at first
+        if (nextLine == null) {
+            fetch();
+        }
+        //
         return nextLine != null;
     }
 
