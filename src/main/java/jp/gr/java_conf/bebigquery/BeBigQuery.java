@@ -15,6 +15,11 @@ public class BeBigQuery {
         authContext.p12File = p12File;
     }
 
+	/**
+     * Creates a Query objest.
+     * @param query
+     * @return
+     */
     public Query query(String query) {
         return new Query(authContext, query);
     }

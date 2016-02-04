@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * Query Logic
+ * Class for representing Query Logic
  */
 public class QueryLogic {
     private static Logger logger = LoggerFactory.getLogger(QueryLogic.class);
