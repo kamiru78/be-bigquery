@@ -16,7 +16,7 @@ public class BeBigQuery {
     }
 
 	/**
-     * Creates a Query objest.
+     * Creates a Query object.
      * @param query
      * @return
      */

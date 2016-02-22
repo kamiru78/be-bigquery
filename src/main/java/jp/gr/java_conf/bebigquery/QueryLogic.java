@@ -20,7 +20,7 @@ public class QueryLogic {
         if (config.getQuery() != null) {
             query = config.getQuery().getQuery();
         }
-        logger.info("Inserting Query Job: " + query);
+        logger.info("Query Job: " + query);
         try {
             Job job = new Job();
             job.setConfiguration(config);

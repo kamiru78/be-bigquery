@@ -14,6 +14,8 @@ import java.util.Iterator;
  */
 public class Query {
     private static Logger logger = LoggerFactory.getLogger(Query.class);
+	private static String TEMP_TABLE_NAME = "__be_bigquery";
+	private static String TEMP_GCS_DIR = "__be_bigquery";
     private AuthorizationContext authContext = new AuthorizationContext();
     private String query;
 
@@ -45,19 +47,7 @@ public class Query {
      * @return
      */
     public Iterable<TableRow> asIterableViaGcs(String tempDatasetId, String tempBucket) {
-        return asIterableViaGcs(tempDatasetId, "__be_bigquery", tempBucket, "__be_bigquery");
-    }
-
-	/**
-     * Execute the query, export to a temp table, export to gcs files then get result as the Iterable.
-     * @param tempDatasetId
-     * @param tempTableId
-     * @param tempBucket
-     * @param tempGcsPath
-     * @return
-     */
-    public Iterable<TableRow> asIterableViaGcs(String tempDatasetId, String tempTableId, String tempBucket, String tempGcsPath) {
-        return executeAndGetResultViaGcs(tempDatasetId, tempTableId, tempBucket, tempGcsPath);
+        return executeAndGetResultViaGcs(tempDatasetId, TEMP_TABLE_NAME, tempBucket, TEMP_GCS_DIR);
     }
 
 	/**
@@ -67,19 +57,7 @@ public class Query {
      * @return
      */
     public Iterator<TableRow> asIteratorViaGcs(String tempDatasetId, String tempBucket) {
-        return asIteratorViaGcs(tempDatasetId, "__be_bigquery", tempBucket, "__be_bigquery");
-    }
-
-	/**
-     * Execute the query, export to a temp table, export to gcs files then get result as the Iterator.
-     * @param tempDatasetId
-     * @param tempTableId
-     * @param tempBucket
-     * @param tempGcsPath
-     * @return
-     */
-    public Iterator<TableRow> asIteratorViaGcs(String tempDatasetId, String tempTableId, String tempBucket, String tempGcsPath) {
-        return executeAndGetResultViaGcs(tempDatasetId, tempTableId, tempBucket, tempGcsPath);
+        return executeAndGetResultViaGcs(tempDatasetId, "__be_bigquery", tempBucket, "__be_bigquery-*");
     }
 
 	/**
@@ -117,21 +95,23 @@ public class Query {
         return new TableRowsResult(authContext.projectId, bigquery, completedJob);
     }
 
-    protected TableRowsGcsStream executeAndGetResultViaGcs(String tempDatasetId, String tempTableId, String tempBucket, String tempGcsPath) {
+    protected TableRowsGcsStream executeAndGetResultViaGcs(String tempDatasetId, String tempTableId, String tempBucket, String tempGcsBaseDir) {
         // Execute query and export to a temp table
-        executeQueryAndExportToTable(tempDatasetId, tempTableId);
+        Job job = executeQueryAndExportToTable(tempDatasetId, tempTableId);
         // Export to Gcs
         ExportedTable tempTable = new ExportedTable(authContext, tempDatasetId, tempTableId);
-        tempTable.exportToGcs(tempBucket, tempGcsPath);
+		String gcsPath = tempGcsBaseDir + "/" + job.getId();
+        tempTable.exportToGcs(tempBucket, gcsPath + "/*");
         // Fetch from GCS
-        Gcs gcs = new Gcs(authContext, tempBucket, tempGcsPath);
+        Gcs gcs = new Gcs(authContext, tempBucket, gcsPath);
         return gcs.downloadAsTableRowsStream();
     }
 
-    protected void executeQueryAndExportToTable(String tempDatasetId, String tempTableId) {
+    protected Job executeQueryAndExportToTable(String tempDatasetId, String tempTableId) {
         final Bigquery bigquery = AuthorizationLogic.createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
         JobConfiguration config = QueryLogic.createExportToTableJobConfiguration(authContext.projectId, query, tempDatasetId, tempTableId);
-        QueryLogic.executeQuery(authContext.projectId, bigquery, config);
+        Job job = QueryLogic.executeQuery(authContext.projectId, bigquery, config);
+		return job;
     }
 
 }
