@@ -73,7 +73,7 @@ public class QueryLogic {
         return config;
     }
 
-    static JobConfiguration createExportToGcsJobConfiguration(String projectId, String datasetId, String tableId, String tempBucket, String tempGcsPath) {
+    static JobConfiguration createExportToGcsJobConfiguration(String projectId, String datasetId, String tableId, String tempBucket, String tempGcsPath, boolean isPrintHeaser) {
         JobConfiguration config = new JobConfiguration();
         JobConfigurationExtract extract = new JobConfigurationExtract();
         TableReference tableReference = new TableReference();
@@ -83,6 +83,7 @@ public class QueryLogic {
         extract.setSourceTable(tableReference);
         extract.setDestinationUri("gs://" + tempBucket + "/" + tempGcsPath);
         extract.setDestinationFormat(GCS_EXPORT_FORMAT);
+        extract.setPrintHeader(isPrintHeaser);
         config.setExtract(extract);
         return config;
     }

@@ -21,11 +21,11 @@ public class ExportedTable {
         this.tableId = tableId;
     }
 
-    public Gcs exportToGcs(String bucket, String gcsPath) {
+    public Gcs exportToGcs(String bucket, String gcsPath, boolean isPrintHeader) {
         // Export the temp table to GCS
         //TODO tmpGcsPathは「/」はじまりだったらNGチェック
         final Bigquery exportBigquery = createAuthorizedBigQueryClient(authContext.accountId, authContext.p12File);
-        JobConfiguration exportJobConfig = createExportToGcsJobConfiguration(authContext.projectId, datasetId, tableId, bucket, gcsPath);
+        JobConfiguration exportJobConfig = createExportToGcsJobConfiguration(authContext.projectId, datasetId, tableId, bucket, gcsPath, isPrintHeader);
         QueryLogic.executeQuery(authContext.projectId, exportBigquery, exportJobConfig);
         return new Gcs(authContext, bucket, gcsPath);
     }

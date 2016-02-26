@@ -82,7 +82,7 @@ public class Query {
         executeQueryAndExportToTable(tempDatasetId, tempTableId);
         // Export to Gcs
         ExportedTable tempTable = new ExportedTable(authContext, tempDatasetId, tempTableId);
-        tempTable.exportToGcs(bucket, gcsPath);
+        tempTable.exportToGcs(bucket, gcsPath, false);	// csvにヘッダーは出力しない
     }
 
     protected TableRowsResult executeAndGetResult() {
@@ -101,7 +101,7 @@ public class Query {
         // Export to Gcs
         ExportedTable tempTable = new ExportedTable(authContext, tempDatasetId, tempTableId);
 		String gcsPath = tempGcsBaseDir + "/" + job.getId();
-        tempTable.exportToGcs(tempBucket, gcsPath + "/*");
+        tempTable.exportToGcs(tempBucket, gcsPath + "/*", true);	// カラム解析のためにヘッダーもcsvへ出力
         // Fetch from GCS
         Gcs gcs = new Gcs(authContext, tempBucket, gcsPath);
         return gcs.downloadAsTableRowsStream();
