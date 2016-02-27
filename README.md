@@ -14,7 +14,7 @@ for (TableRow row : tableRows) {
 }
 ```
 
-### Execute a query and get learge results
+### Execute a query and get large results
 ```java
 Iterable tableRows = bbq.query("select * from dataset.table where condition=11")
     .asIterableViaGcs("temp_dataset", "temp_gcs_buckt");
