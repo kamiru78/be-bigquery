@@ -19,3 +19,12 @@ for (TableRow row : tableRows) {
 Iterable tableRows = bbq.query("select * from dataset.table where condition=11")
     .asIterableViaGcs("temp_dataset", "temp_gcs_buckt");
 ```
+
+## Use BigQuery with Apache Spark as input data
+```
+// scala sample
+val bbq = new BeBigQuery("project-id" , "servic-account", new File("path/file.p12"))
+bbq.query("select * from dataset.table where condition=11")
+    .exportToGcs("tempDataset", "tempTable", "gcsBucket", "gcsPath/*")
+val textFile = sc.textFile("gs://gcsBucket/gcsPath/")
+```

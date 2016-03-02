@@ -29,6 +29,8 @@ public class TableRowsGcsStream implements Iterator<TableRow>, Iterable<TableRow
 
 	public TableRowsGcsStream(List<Storage.Objects.Get> getObjedtList) {
 		gcsObjectIterator = getObjedtList.iterator();
+		// load first record
+		downloadNextFileAndReadLine();
 	}
 
 	@Override
@@ -38,11 +40,6 @@ public class TableRowsGcsStream implements Iterator<TableRow>, Iterable<TableRow
 
 	@Override
 	public boolean hasNext() {
-		// at first
-		if (stream == null) {
-			fetch();
-		}
-		//
 		if (nextLine != null) {
 			return true;
 		} else {
@@ -75,15 +72,10 @@ public class TableRowsGcsStream implements Iterator<TableRow>, Iterable<TableRow
 	 */
 	private void fetch() {
 		try {
-			if (stream == null) {
-				// at first
+			nextLine = stream.readLine();
+			if (nextLine == null) {
+				// if it is reached end of the file.
 				downloadNextFileAndReadLine();
-			} else {
-				nextLine = stream.readLine();
-				if (nextLine == null) {
-					// if finished reading a current file.
-					downloadNextFileAndReadLine();
-				}
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
