@@ -1,3 +1,4 @@
+<meta name="google-site-verification" content="g8QPEcv2Kbg9KDzIYDlXWwfDtr1oO7M3B_Cs0pAGjDg" />
 # Be-BigQuery
 ## Examples
 ### Execute a query simply
