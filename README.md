@@ -14,9 +14,7 @@ Be-BigQuery is a BigQuery client and has simple interfaces.
 ## Examples
 ### Execute a query simply
 ```java
-BeBigQuery bbq = new BeBigQuery("project-id"
-        , "servic-account"
-        , new File("path/file.p12"));
+BeBigQuery bbq = new BeBigQuery("project-id", "servic-account" , new File("path/file.p12"));
 Iterable tableRows = bbq.query("select * from dataset.table where condition=11").asIterable();
 for (TableRow row : tableRows) {
     for (TableCell cell : row.getF()) {
@@ -32,7 +30,7 @@ Iterable tableRows = bbq.query("select * from dataset.table where condition=11")
     .asIterableViaGcs("temp_dataset", "temp_gcs_buckt");
 ```
 
-## Use BigQuery with Apache Spark as input data
+### Use BigQuery with Apache Spark as input data
 ```
 // scala sample
 val bbq = new BeBigQuery("project-id" , "servic-account", new File("path/file.p12"))
