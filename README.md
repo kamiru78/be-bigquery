@@ -1,5 +1,16 @@
 <meta name="google-site-verification" content="g8QPEcv2Kbg9KDzIYDlXWwfDtr1oO7M3B_Cs0pAGjDg" />
 # Be-BigQuery
+Be-BigQuery is a BigQuery client and has simple interfaces.
+
+# Installation
+```xml
+<dependency>
+    <groupId>com.github.kamiru78</groupId>
+    <artifactId>be-bigquery</artifactId>
+    <version>0.5.0</version>
+</dependency>
+```
+
 ## Examples
 ### Execute a query simply
 ```java
